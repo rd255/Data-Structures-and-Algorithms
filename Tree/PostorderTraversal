@@ -1,0 +1,7 @@
+public postorder(Node root) {
+	if(root!=null) {
+		postorder(root.left);
+		postorder(root.right);
+		visit(root);
+	}
+}
