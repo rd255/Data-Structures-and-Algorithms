@@ -1,0 +1,13 @@
+void createBST(int[] a, int start, int end,Node X) {
+	int mid = ceil((start+end)/2);
+	X.data = a[mid];
+	createBST(a, start, mid-1, X.left);
+	createBST(a, mid+1, end, X.right);
+}
+
+void main() {
+	Tree T = new Tree();
+	int[] sortedArray = {1,2,3,4,5,6,7};
+	int i = ceil(((sortedArray.getLength)/2));
+	createBST(sortedArray, 0, i, T.root);
+}
