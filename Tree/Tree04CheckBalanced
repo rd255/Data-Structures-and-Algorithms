@@ -1,0 +1,14 @@
+int isBalanced(Node X) {
+	if(X is null)
+		return 0;
+	int left = isBalanced(X.left);
+	int right = isBalanced(X.left);	
+	if abs(left-right)>2
+		print("Tree is not balanced");
+	return max(left,right)+1
+}
+
+void main() {
+	isBalanced(Tree.root);
+	return;
+}
