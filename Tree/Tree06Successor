@@ -1,0 +1,19 @@
+Node Successor (Node X) {
+	if (X is null)
+		return null;
+	if (Node Y = inOrder(X.right) is not null)
+		return Y;
+	if (Node Z = SBP(X) is not null)
+		return Z;
+	else
+		return null;
+}
+
+Node SBP(Node X) {
+	if (X.parent is null)
+		return null;
+	if (X.parent>X) 
+		return X;
+	else
+		return SBP(X.parent);
+}
