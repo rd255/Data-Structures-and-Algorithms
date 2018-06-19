@@ -9,11 +9,11 @@ Node Successor (Node X) {
 		return null;
 }
 
-Node SBP(Node X) {
+Node smallestBiggerParent(Node X) {
 	if (X.parent is null)
 		return null;
 	if (X.parent>X) 
 		return X;
 	else
-		return SBP(X.parent);
+		return smallestBiggerParent(X.parent);
 }
