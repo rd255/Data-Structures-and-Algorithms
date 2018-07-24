@@ -50,3 +50,4 @@ class Solution {
          return dummy.next;
     }
 } 
+// end of file
