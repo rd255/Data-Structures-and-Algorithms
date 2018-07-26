@@ -1,0 +1,39 @@
+class Solution {
+    public int myAtoi(String str) {
+        boolean isNeg = false;
+        String s = str.trim();
+        int len = s.length();
+        double out = 0;
+        for(int i=0; i<len;i++) {
+            int a = (int)s.charAt(i);
+            if(i==0) {
+                if(a==43 || a==45 || (a>=48 && a<=57)) {
+                    if(a==45)
+                        isNeg=true;
+                    else if(a==43) {}
+                        // do nothing;
+                    else
+                        out = out*10 + Character.getNumericValue(a);      
+                } 
+                else {
+                    return 0;
+                }    
+            }
+            else {
+                if(a>=48 && a<=57) {
+                    if(isNeg && out*-1<-2147483648)
+                        return -2147483648;
+                    else if(out>(double)2147483647)
+                        return 2147483647;
+                    else
+                        out = out*10 + Character.getNumericValue(a);
+                }
+                else
+                    break;
+            }
+        }
+        if(isNeg)
+            out *= -1;
+        return (int)out;
+    }
+}
