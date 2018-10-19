@@ -28,8 +28,6 @@ public class CSVReader {
                 i++;
                 xsorted[i][0] = Double.parseDouble(treedata[0]);
                 xsorted[i][1] = Double.parseDouble(treedata[1]);
-                //System.out.println("i:" + i + ", id:" + xsorted[i][0] + ", x:" + xsorted[i][1] + ", y:" + treedata[2]); // for debugging purpose only
-                
             }
             i=-1;
             br = new BufferedReader(new FileReader(csvFiley));
@@ -41,8 +39,6 @@ public class CSVReader {
                 i++;
                 ysorted[i][0] = Double.parseDouble(treedata[0]);
                 ysorted[i][1] = Double.parseDouble(treedata[2]);
-                //System.out.println("i:" + i + ", id:" + ysorted[i][0] + ", y:" + xsorted[i][1] + ", x:" + treedata[1]); // for debugging purpose only 
-                
             }
             System.out.println("CSV loaded successfully.");
         } catch (FileNotFoundException e) {
@@ -58,7 +54,7 @@ public class CSVReader {
                 }
             }
         }
-        // continue main method code here
+        
         printTreeWithMaximumTreeNearby(xsorted, ysorted);
     }
     
