@@ -83,21 +83,21 @@ public class CSVReader {
         ycostrev += irev * (y[i+1][1] - y[i][1]);
         ycost[i] += ycostrev;
       }
-      // add x and y costs, find max cost
-      double maxindex = -1;
-      double maxcost = 0;
+      // add x and y costs, find min cost
+      double minindex = DOUBLE.MAX_VALUE;
+      double mincost = DOUBLE.MAX_VALUE;
       HashMap<Double,Double> totalcost = new HashMap<>();
       for(int i=0; i<683789; i++ ) 
         totalcost.put(x[i][0], x[i][1]);
       for(int i=0; i<683789; i++ ) {
         double currentcost = totalcost.get(y[i][0]) + y[i][1];
         totalcost.put(y[i][0], currentcost);
-        if(currentcost > maxcost) {
-          maxindex = y[i][0];
-          maxcost = currentcost;
+        if(currentcost < mincost) {
+          minindex = y[i][0];
+          mincost = currentcost;
         }
       }
       // print result here
-      System.out.println("required tree_id : " + (int)maxindex);
+      System.out.println("required tree_id : " + (int)minindex);
     }
 }
