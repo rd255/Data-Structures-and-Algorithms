@@ -1,0 +1,33 @@
+class Solution {
+    public boolean reorderedPowerOf2(int N) {
+        int[] nod = new int[10];
+        for(int j=0; j<10;j++)
+            nod[j]=0;
+        int n2 = N;
+        while(n2>0) {
+            nod[n2%10]++;
+            n2 = (int)(n2/10);
+        }
+        for(int i=1; i<1000000001; i*=2) {
+            int[] nod2 = new int[10];
+            for(int j=0; j<10;j++)
+                nod2[j]=0;
+            int i2 = i;
+            while(i2>0) {
+                System.out.println(i2);
+                nod2[i2%10]++;
+                i2 = (int)(i2/10);
+            }
+            if(equalDigits(nod,nod2))
+                return true;
+        }
+        return false;
+    }
+    
+    public boolean equalDigits(int[] nod, int[] nod2) {
+        for(int i=0;i<9;i++)
+            if(nod[i]!=nod2[i]) 
+                return false;
+        return true;
+    }
+}

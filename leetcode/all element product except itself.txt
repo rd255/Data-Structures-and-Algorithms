@@ -1,0 +1,6 @@
+Q:1 2 3 4
+A:24 12 8 6
+L:1,2,6,24
+R:24,24,12,4
+
+approach for multiplying all elements in an array except current position and storing it in current position

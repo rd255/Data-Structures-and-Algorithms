@@ -1,0 +1,44 @@
+class Solution {
+    public boolean buddyStrings(String A, String B) {
+        int lenA = A.length();
+        int lenB = B.length();
+        int diffCount = 0;
+        int diffAOne,diffATwo, diffBOne, diffBTwo;
+        diffAOne=diffBOne=diffATwo=diffBTwo=0;
+        int[] alphabetCount = new int[26];
+        if((lenA<2) || (lenB<2) || (lenA!=lenB))
+            return false;
+        for(int i=0; i<lenA; i++) {
+            if(A.charAt(i) != B.charAt(i)) {
+                if (diffCount == 2) {
+                    return false;
+                }
+                else {
+                    if(diffCount==0) {
+                        diffAOne=A.charAt(i);
+                        diffBOne=B.charAt(i);
+                    }
+                    if(diffCount==1) {
+                        diffATwo = A.charAt(i);
+                        diffBTwo = B.charAt(i);
+                    }
+                    diffCount++;
+                }   
+            }
+            else {
+                alphabetCount[A.charAt(i)-97]++;
+            }
+        }
+        if(diffCount==0) 
+            for(int i=0;i<26;i++) 
+                if(alphabetCount[i]>=2)
+                    return true;
+        if(diffCount==2) 
+            if(diffAOne==diffBTwo && diffATwo==diffBOne)
+                return true;
+            else
+                return false;
+        return false;
+    
+    }
+}

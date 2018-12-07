@@ -1,0 +1,23 @@
+class Solution {
+    public int reverse(int x) {
+        int sign = 1;
+        if (x<0) {
+            sign = -1;
+            x *= sign;
+        }
+        long rx = 0;
+        while(x>0) {
+            rx *= 10;
+            rx += x%10;
+            x = (int) x/10;
+        }
+        
+        rx *= sign;
+        if(rx>Integer.MAX_VALUE || rx < Integer.MIN_VALUE) {
+            return 0;
+        }
+        else
+            return (int)rx;
+        
+    }
+}
