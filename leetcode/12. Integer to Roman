@@ -1,0 +1,39 @@
+class Solution {
+    public String intToRoman(int num) {
+        StringBuilder ret =new StringBuilder("");
+        boolean by10 = true;
+        int val = 1000;
+        HashMap<Integer, Character> hm = new HashMap<Integer,Character>();
+        hm.put(1,'I');
+        hm.put(5,'V');
+        hm.put(10,'X');
+        hm.put(50,'L');
+        hm.put(100,'C');
+        hm.put(500,'D');
+        hm.put(1000,'M');
+        
+        while(num>0) {
+            if(num>=val) {
+                int quo = num/val;
+                for(int i=0;i<quo; i++)
+                    ret.append(hm.get(val)+"");
+                num%=val;
+            }
+            if(val==1)
+                break;
+            int pre=0;
+            if(by10)
+                pre = val*9/10;
+            else
+                pre = val*4/5;
+            if(num>=pre) {
+                ret.append(hm.get(val-pre)+"");
+                ret.append(hm.get(val)+"");
+                num-=pre;
+            }
+            val/= by10?2:5;
+            by10=!by10;
+        }
+        return ret.toString();
+    }
+}
