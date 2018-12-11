@@ -1,0 +1,27 @@
+class Solution {
+    public String reverseString(String s) {
+        if(s.length()<2)
+            return s;
+        int len = s.length();
+        char[] c = new char[len];
+        for(int i=0; i<len;i++)
+            c[i] = s.charAt(len-i-1);
+        return new String(c);
+    }
+}
+/*
+Write a function that takes a string as input and returns the string reversed.
+
+Example 1:
+
+Input: "hello"
+Output: "olleh"
+Example 2:
+
+Input: "A man, a plan, a canal: Panama"
+Output: "amanaP :lanac a ,nalp a ,nam A"
+Accepted
+330,394
+Submissions
+532,931
+*/
