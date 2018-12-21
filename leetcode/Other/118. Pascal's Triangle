@@ -1,0 +1,40 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> lli = new ArrayList<>();
+        List<Integer> li = new ArrayList<>(), pre_li = new ArrayList<>();
+        for(int i=0;i<numRows;i++) {
+            if(i!=0)
+                pre_li = lli.get(i-1);
+            for(int j=0;j<=i;j++) 
+                if(j==0 || j==i)
+                    li.add(1);
+                else 
+                    li.add(pre_li.get(j-1)+pre_li.get(j));
+            lli.add(li);
+            li = new ArrayList<>();
+        }
+        return lli;
+    }
+}
+/*
+Given a non-negative integer numRows, generate the first numRows of Pascal's triangle.
+
+
+In Pascal's triangle, each number is the sum of the two numbers directly above it.
+
+Example:
+
+Input: 5
+Output:
+[
+     [1],
+    [1,1],
+   [1,2,1],
+  [1,3,3,1],
+ [1,4,6,4,1]
+]
+Accepted
+210,893
+Submissions
+487,206
+*/
