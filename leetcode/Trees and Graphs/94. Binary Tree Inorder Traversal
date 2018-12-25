@@ -1,0 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> li = new ArrayList<>();
+        Stack<TreeNode> st = new Stack<TreeNode>();
+        TreeNode x = root;
+        while(!st.isEmpty() || x!=null) {
+            if(x!=null) {
+                st.push(x);
+                x = x.left;
+            }
+            else {
+                x = st.pop();
+                li.add(x.val);
+                x = x.right;
+            }
+        }
+        return li;
+    }
+}
+/*
+Given a binary tree, return the inorder traversal of its nodes' values.
+
+Example:
+
+Input: [1,null,2,3]
+   1
+    \
+     2
+    /
+   3
+
+Output: [1,3,2]
+Follow up: Recursive solution is trivial, could you do it iteratively?
+
+Accepted
+375,477
+Submissions
+698,778*/
