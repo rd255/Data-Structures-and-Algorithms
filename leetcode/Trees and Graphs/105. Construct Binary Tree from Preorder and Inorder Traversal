@@ -1,0 +1,49 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return buildATree(0,0,inorder.length-1, preorder, inorder);
+    }
+    public TreeNode buildATree(int preorderIsHere, int inorderStartsHere, int inorderEndsHere, int[] preorder, int[] inorder) {
+        if(preorderIsHere>=preorder.length || inorderStartsHere>inorderEndsHere)
+            return null;
+        TreeNode root = new TreeNode(preorder[preorderIsHere]);
+        int preInInorder = -1;
+        for(int i=inorderStartsHere; i<=inorderEndsHere; i++) 
+            if(inorder[i] == preorder[preorderIsHere])
+                preInInorder = i;
+        
+        root.left = buildATree(preorderIsHere+1,inorderStartsHere, preInInorder-1,preorder, inorder);
+        root.right = buildATree(preorderIsHere+1+preInInorder-inorderStartsHere,preInInorder+1,inorderEndsHere,preorder,inorder);
+        return root;
+    }
+}
+/*
+Given preorder and inorder traversal of a tree, construct the binary tree.
+
+Note:
+You may assume that duplicates do not exist in the tree.
+
+For example, given
+
+preorder = [3,9,20,15,7]
+inorder = [9,3,15,20,7]
+Return the following binary tree:
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+Accepted
+185,359
+Submissions
+485,037
+*/
