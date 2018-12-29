@@ -1,0 +1,61 @@
+class Solution {
+	public boolean isHappy(int n) {
+		HashSet<List<Character>> hs = new HashSet<>();
+        List<Character> lc = toCharList(n);
+        List<Character> one = toCharList(1);
+        int listInt = listToInt(lc);
+		while(listInt!=1) {
+			lc = squareNumber(lc);
+			Collections.sort(lc);
+			if(hs.contains(lc))
+				return false;
+			else
+				hs.add(lc);
+            listInt = listToInt(lc);
+		}
+        return true;
+	} 
+	public List<Character> toCharList(int m) {
+		List<Character> lc = new ArrayList<>();
+		while(m>0) {
+            char a = (char)((m%10)+48);
+			lc.add(a);
+			m/=10;
+		}
+		return lc;
+	}
+	public List<Character> squareNumber(List<Character> lc) {
+		int i=0;
+		int sum=0;
+		while(i<lc.size()) {
+			sum+=(int)Math.pow(Character.getNumericValue(lc.get(i)),2);
+			i++;
+		}
+		return toCharList(sum);
+	}
+    public int listToInt(List<Character> lc) {
+        int ret = 0;
+        for(int i=0;i<lc.size();i++) 
+            ret+=Character.getNumericValue(lc.get(i));
+        return ret;
+    }
+}
+/* 
+Write an algorithm to determine if a number is "happy".
+
+A happy number is a number defined by the following process: Starting with any positive integer, replace the number by the sum of the squares of its digits, and repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1. Those numbers for which this process ends in 1 are happy numbers.
+
+Example: 
+
+Input: 19
+Output: true
+Explanation: 
+12 + 92 = 82
+82 + 22 = 68
+62 + 82 = 100
+12 + 02 + 02 = 1
+Accepted
+200,352
+Submissions
+459,349
+*/
