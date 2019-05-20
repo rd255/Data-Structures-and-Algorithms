@@ -1,0 +1,72 @@
+import java.lang.Math;
+public class MyClass {
+    public static void main(String args[]) {
+        AVLTree m = new AVLTree();
+		for(int i=0;i<10;i++) {
+		    int j = (int)(Math.random()*100);
+		    m.root = m.insert(m.root,j);
+		}
+		m.preOrder(m.root);
+    }
+}
+
+class Node {
+	int key, height;
+	Node left, right;
+	Node(int k) {
+		this.key = k;
+		this.height = 1;
+	}
+}
+
+class AVLTree {
+	Node root;
+	Node insert(Node n, int key) {
+		if(n==null) return new Node(key);
+		if(key<n.key) n.left = insert(n.left,key);
+		if(key>n.key) n.right = insert(n.right,key);
+		if(key==n.key) return n;
+		n.height = Math.max(height(n.left), height(n.right)) + 1;
+		int balF = height(n.left) - height(n.right);
+		if(balF>1 && key<n.left.key) return rightRotate(n);
+		if(balF<-1 && key>n.right.key) return leftRotate(n);
+		if(balF>1 && key>n.left.key) { //leftrightcase
+			n.left = leftRotate(n.left);
+			return rightRotate(n);
+		}
+		if(balF<-1 && key<n.right.key) { //rightleftcase
+			n.right = rightRotate(n.right);
+			return leftRotate(n);
+		}
+		return n;
+	}
+	int height(Node n) {
+		if(n==null) return 0;
+		return n.height;
+	}
+	Node rightRotate(Node n) {
+		Node m = n.left;
+		Node t = m.right;
+		m.right = n;
+		n.left = t;
+		n.height = Math.max(height(n.left),height(n.right))+1;
+		m.height = Math.max(height(m.left),height(m.right))+1;
+		return m;
+	}
+	Node leftRotate(Node n) {
+		Node m = n.right;
+		Node t = m.left;
+		m.left = n;
+		n.right = t;
+		n.height = Math.max(height(n.left), height(n.right))+1;
+		m.height = Math.max(height(m.left), height(m.right))+1;
+		return m;	
+	}
+	void preOrder(Node root) {
+		if(root!=null) {
+		    System.out.print(root.key + " ");
+		    preOrder(root.left);
+    		preOrder(root.right);
+		}
+	}
+}
