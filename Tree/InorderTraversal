@@ -1,7 +1,0 @@
-public inorder(Node root) {
-	if (root!=null) {
-		inorder(root.left);
-		visit(root);
-		inorder(root.right);
-	}
-}
