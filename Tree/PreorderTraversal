@@ -1,7 +1,0 @@
-public preorder(Node root){
-	if(root!=null) {
-		visit(root);
-		preorder(root.left);
-		preorder(root.right);
-	}
-}
