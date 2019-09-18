@@ -1,0 +1,83 @@
+import java.util.*;
+class Solution {
+    public boolean isNStraightHand(int[] hand, int W) {
+        int len = hand.length;
+        if(len%W != 0)
+            return false;
+        SortedMap<Integer,Integer> sm = new TreeMap<Integer,Integer>();
+        ArrayList<Integer> al = new ArrayList<Integer>();
+        for(Integer i : hand) 
+            sm.put(i,sm.getOrDefault(i,0)+1);
+        while(sm.size() > 0) {
+            al.clear();
+            int lastcard = -1;
+            for(Integer i : sm.keySet()) {
+                if(al.size()==W) {
+                    break;
+                }
+                else if(lastcard!=-1 && i-lastcard!=1) {
+                    return false;
+                }
+                else {
+                    lastcard = i;
+                    al.add(i);
+                }
+            }
+            if(al.size() == W) {
+                for(Integer i : al) {
+                    if(sm.get(i) > 1) {
+                        sm.put(i,sm.get(i)-1);    
+                    }
+                    else {
+                        sm.remove(i);
+                    }
+                }
+            }
+            else {
+                return false;
+            }
+                
+        }
+        return true;
+    }
+}
+/*
+Medium
+
+323
+
+47
+
+Favorite
+
+Share
+Alice has a hand of cards, given as an array of integers.
+
+Now she wants to rearrange the cards into groups so that each group is size W, and consists of W consecutive cards.
+
+Return true if and only if she can.
+
+ 
+
+Example 1:
+
+Input: hand = [1,2,3,6,2,3,4,7,8], W = 3
+Output: true
+Explanation: Alice's hand can be rearranged as [1,2,3],[2,3,4],[6,7,8].
+Example 2:
+
+Input: hand = [1,2,3,4,5], W = 4
+Output: false
+Explanation: Alice's hand can't be rearranged into groups of 4.
+ 
+
+Note:
+
+1 <= hand.length <= 10000
+0 <= hand[i] <= 10^9
+1 <= W <= hand.length
+Accepted
+22,790
+Submissions
+45,535
+*/
