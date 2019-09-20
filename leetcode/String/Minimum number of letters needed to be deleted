@@ -1,0 +1,81 @@
+/*
+Given a string S consisting of N lowercase letters, return the minimum number of letters 
+that must be deleted to obtain a word in which every letter occurs a unique number of times. 
+We only care about occurrences of letters that appear at least once in result.
+*/
+import java.util.*;
+import java.io.*;
+public class Main {
+    public static void main(String[] args) {
+        String S = "";
+        S = "aabbccdddddeeeeefffff";
+        System.out.println(S);
+        System.out.println("Test passed : "+ (giveMeSomething(S)==6));
+        S = "a";
+        System.out.println(S);
+        System.out.println("Test passed : "+ (giveMeSomething(S)==0));
+        S = "aa";
+        System.out.println(S);
+        System.out.println("Test passed : "+ (giveMeSomething(S)==0));
+        S = "ab";
+        System.out.println(S);
+        System.out.println("Test passed : "+ (giveMeSomething(S)==1));
+        S = "aabb";
+        System.out.println(S);
+        System.out.println("Test passed : "+ (giveMeSomething(S)==1));
+        S = "aaaabbbb";
+        System.out.println(S);
+        System.out.println("Test passed : "+ (giveMeSomething(S)==1));
+        S = "cccdddeeffgg";
+        System.out.println(S);
+        System.out.println("Test passed : "+ (giveMeSomething(S)==6));
+        S = "example";
+        System.out.println(S);
+        System.out.println("Test passed : "+ (giveMeSomething(S)==4));
+        S = "zzzzzzzzzzxxxxxxxxxxyyyyyyyyyywwwwwwwwwwrrrrrrr";
+        System.out.println(S);
+        System.out.println("Test passed : "+ (giveMeSomething(S)==7));
+        S = "zzzzzzzzzzxxxxxxxxxxyyyyyyyyyywwwwwwwwwwrrrrrrrtttttt";
+        System.out.println(S);
+        System.out.println("Test passed : "+ (giveMeSomething(S)==8));
+        S = "zzzzzzzzzzxxxxxxxxxxyyyyyyyyyywwwwwwwwwwrrrrrrrttttttgggggffffhhhjji";
+        System.out.println(S);
+        System.out.println("Test passed : "+ (giveMeSomething(S)==13));
+    }
+    public static int giveMeSomething(String S) {
+        int len = S.length();
+        int[] countofchars = new int[26];
+        for(int i=0;i<len;i++) {
+            countofchars[S.charAt(i)-'a']++;
+        }
+        Arrays.sort(countofchars);
+        Stack<Integer> st = new Stack<Integer>();
+        int delcount = 0;
+        int currentval = 0;
+        int prevval = countofchars[25];
+        for(int i = 24;countofchars[i]>0;i--) {
+            currentval = countofchars[i];
+            int currentdiff = prevval-currentval;
+            if(currentdiff==0) {
+                st.push(currentval);
+            }
+            else if (currentdiff>1) {
+                currentdiff--;
+                while(!st.empty() && currentdiff>0) {
+                    prevval--;
+                    currentdiff--;
+                    delcount+=st.pop()-prevval;
+                }
+            }
+            prevval = currentval;
+        }
+        currentval--;
+        while(!st.empty()) {
+                delcount+=st.pop();
+                if(currentval>0) 
+                    delcount -= currentval;
+                currentval--;
+            }
+        return delcount;
+    }
+}
