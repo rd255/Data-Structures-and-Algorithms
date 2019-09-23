@@ -1,0 +1,44 @@
+class Solution {
+    List<List<Integer>> lli = new ArrayList<>();
+    public List<List<Integer>> permute(int[] nums) {
+        fillPermutations(nums,0,new ArrayList<Integer>());
+        return lli;
+    }
+    public void fillPermutations(int[]nums, int index,List<Integer> li) {
+        int len = nums.length;
+        if(index == len) {
+            lli.add(li);
+            return ;
+        }
+        int size = li.size();
+        int addThis = nums[index];
+        for(int i=0;i<=size;i++) {
+            List<Integer> newli = new ArrayList<Integer>();
+            newli.addAll(li);
+            newli.add(i,addThis);
+            fillPermutations(nums,index+1,newli);
+        }
+        return ;
+    }
+}
+/*
+Share
+Given a collection of distinct integers, return all possible permutations.
+
+Example:
+
+Input: [1,2,3]
+Output:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]
+Accepted
+438,117
+Submissions
+761,740
+*/
