@@ -1,0 +1,97 @@
+import java.util.*;
+class Solution {
+    public boolean hasGroupsSizeX(int[] deck) {
+        HashMap<Integer,Integer> hm = new HashMap<Integer,Integer>();
+        for(int dec : deck) {
+            hm.put(dec,(hm.getOrDefault(dec,0)+1));
+        }
+        SortedMap<Integer,ArrayList<Integer>> sm = new TreeMap<Integer,ArrayList<Integer>>();
+        for(Map.Entry<Integer,Integer> entry : hm.entrySet()) {
+            if(entry.getValue() == 1)
+                return false;
+            ArrayList<Integer> al = sm.get(entry.getValue());
+            if(al == null) {
+                al = new ArrayList<Integer>();
+                sm.put(entry.getValue(),al);
+            }
+            al.add(entry.getKey());
+        }
+        SortedMap<Integer,Boolean> factors = getFactors(sm.firstKey());
+        int minSatisfied = 2;
+        for(Map.Entry<Integer,ArrayList<Integer>> entry : sm.entrySet()) {
+            for(Map.Entry<Integer,Boolean>  innerE : factors.entrySet()) {
+                    if(entry.getKey()%innerE.getKey()!=0) {
+                        factors.put(innerE.getKey(),false);
+                    }
+                }
+        }
+        for(Map.Entry<Integer,Boolean>  entry : factors.entrySet()) {
+            if(entry.getValue() == true) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public SortedMap<Integer,Boolean> getFactors(int x) {
+        SortedMap<Integer,Boolean> hm = new TreeMap<Integer,Boolean>();
+        for(int i=2;i<=x;i++) {
+            if(x%i==0)
+                hm.put(i,true);
+        }
+        return hm;
+    }
+}
+/*
+Easy
+
+278
+
+73
+
+Favorite
+
+Share
+In a deck of cards, each card has an integer written on it.
+
+Return true if and only if you can choose X >= 2 such that it is possible to split the entire deck into 1 or more groups of cards, where:
+
+Each group has exactly X cards.
+All the cards in each group have the same integer.
+ 
+
+Example 1:
+
+Input: [1,2,3,4,4,3,2,1]
+Output: true
+Explanation: Possible partition [1,1],[2,2],[3,3],[4,4]
+Example 2:
+
+Input: [1,1,1,2,2,2,3,3]
+Output: false
+Explanation: No possible partition.
+Example 3:
+
+Input: [1]
+Output: false
+Explanation: No possible partition.
+Example 4:
+
+Input: [1,1]
+Output: true
+Explanation: Possible partition [1,1]
+Example 5:
+
+Input: [1,1,2,2,2,2]
+Output: true
+Explanation: Possible partition [1,1],[2,2],[2,2]
+
+Note:
+
+1 <= deck.length <= 10000
+0 <= deck[i] < 10000
+ 
+Accepted
+23,744
+Submissions
+70,011
+*/
