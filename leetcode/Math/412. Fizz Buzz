@@ -1,17 +1,20 @@
 class Solution {
     public List<String> fizzBuzz(int n) {
-        List<String> ls = new ArrayList<String>();
-        for(int i=1;i<=n;i++) {
-            if(i%3==0 && i%5==0)
-                ls.add("FizzBuzz");
-            else if(i%3==0)
-                ls.add("Fizz");
-            else if(i%5==0)
-                ls.add("Buzz");
+        String f = "Fizz";
+        String b = "Buzz";
+        String fb = "FizzBuzz";
+        List<String> l = new ArrayList<String>();
+        for(int i=1;i<=n;i++) 
+            if(i%5==0 && i%3==0)
+                l.add(fb);
             else
-                ls.add(i+"");
-        }
-        return ls;
+                if(i%3==0)
+                    l.add(f);
+                else if(i%5==0)
+                    l.add(b);
+                else
+                    l.add(String.valueOf(i));
+        return l;
     }
 }
 /*
