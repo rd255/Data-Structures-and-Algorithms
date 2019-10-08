@@ -1,0 +1,45 @@
+DELETE FROM Person
+WHERE Id NOT IN(Select mid FROM  (
+    SELECT Id as mid,RANK() OVER (
+    PARTITION BY Email
+    ORDER BY mid) AS a
+    FROM Person
+    WHERE  a=1)
+);
+/*
+Easy
+
+319
+
+403
+
+Favorite
+
+Share
+Write a SQL query to delete all duplicate email entries in a table named Person, keeping only unique emails based on its smallest Id.
+
++----+------------------+
+| Id | Email            |
++----+------------------+
+| 1  | john@example.com |
+| 2  | bob@example.com  |
+| 3  | john@example.com |
++----+------------------+
+Id is the primary key column for this table.
+For example, after running your query, the above Person table should have the following rows:
+
++----+------------------+
+| Id | Email            |
++----+------------------+
+| 1  | john@example.com |
+| 2  | bob@example.com  |
++----+------------------+
+Note:
+
+Your output is the whole Person table after executing your sql. Use delete statement.
+
+Accepted
+84,327
+Submissions
+238,159
+*/
