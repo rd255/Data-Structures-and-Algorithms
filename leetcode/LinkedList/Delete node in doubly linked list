@@ -1,0 +1,16 @@
+/*
+https://practice.geeksforgeeks.org/problems/delete-node-in-doubly-linked-list/1
+Time - O(pos) Space - O(1)
+*/
+class GfG
+{
+    Node deleteNode(Node head,int x)
+    {
+        Node newHead = head;
+	    for(int i=1;i<x;i++) head = head.next;
+	    if(head.prev==null)  return head.next;
+	    else                 head.prev.next = head.next;
+	    if(head.next!=null)  head.next.prev = head.prev;
+	    return newHead;
+    }
+}
