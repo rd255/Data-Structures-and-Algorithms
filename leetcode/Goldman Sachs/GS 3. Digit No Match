@@ -1,0 +1,45 @@
+/*
+https://leetcode.com/discuss/interview-question/334666/Goldman-Sachs-or-OA-2019/
+Time - O(n)
+Space - O(1)
+*/
+package com.practice.algo.gs;
+
+import java.util.HashSet;
+
+public class DigitNoMatch {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DigitNoMatch d = new DigitNoMatch();
+		System.out.println(d.findDigit(5, 15, 2));
+	}
+	public int findDigit(int l, int r, int q) {
+		int res = 0;
+		while(l<=r) {
+			HashSet<Integer> hsl = getSet(l);
+			int prod = l*q;
+			while(prod>0) {
+				int a = prod%10;
+				if(hsl.contains(a)) {
+					res--;
+					break;
+				}
+				prod/=10;
+			}
+			res++;
+			l++;
+		}
+		return res;
+	}
+	private HashSet<Integer> getSet(int q) {
+		HashSet<Integer> hs = new HashSet<Integer>();
+		while(q>0) {
+			int a = q%10;
+			hs.add(a);
+			q/=10;
+		}
+		return hs;
+	}
+
+}
