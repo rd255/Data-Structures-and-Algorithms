@@ -1,0 +1,89 @@
+/*
+https://leetcode.com/discuss/interview-question/338412/Goldman-Sachs-or-Online-Assessment-2019
+
+Time - O(turns*rows*columns)
+Space - O(1)
+*/
+
+package com.practice.algo.gs;
+
+import java.util.Arrays;
+
+public class GridGame {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		GridGame g = new GridGame();
+		int[][] grid = {
+			{0,1,1,0},
+			{1,1,0,0}
+		};
+		int turns = 2;
+		int[] rules = {0,0,0,1,0,1,0,0,0};
+		g.printGrid(grid);
+		g.playGridGame(grid, turns, rules);
+	}
+	public void playGridGame(int[][] grid, int turns, int[] rules) {
+		int[][] corners = {
+				{-1,-1},	{-1,0},		{-1,1},
+				{0,-1},					{0,1},
+				{1,-1},		{1,0}, 		{1,1}
+		};
+		for(int t = 1;t<=turns;t++) {
+			for(int i=0;i<grid.length;i++) {
+				for(int j=0;j<grid[0].length;j++) {
+					int count = 0;
+					for(int d = 0;d<corners.length;d++) {
+						int r = i + corners[d][0];
+						int c = j + corners[d][1];
+						if(r>=0 && r<grid.length && c>=0 && c<grid[0].length) {
+							if(grid[r][c]==1 || grid[r][c] == 3) {
+								count++;
+							}
+						}
+					}
+					if(rules[count] == 0) {
+						if(grid[i][j] == 1) {
+							grid[i][j] = 2;
+						}
+						else if(grid[i][j] == 2){
+							grid[i][j] = 1;
+						}
+					}
+					else {
+						if(grid[i][j] == 0) {
+							grid[i][j] = 3;
+						}
+						else if(grid[i][j] == 3) {
+							grid[i][j] = 1;
+						}
+					}
+				}
+			}
+			printGrid(grid);
+		}
+		for(int i=0;i<grid.length;i++) {
+			for(int j=0;j<grid[0].length;j++) {
+				if(grid[i][j] == 2)
+					grid[i][j] = 1;
+				else if(grid[i][j] == 3)
+					grid[i][j] = 0;
+			}
+		}
+		printGrid(grid);
+	}
+	public void printGrid(int[][] grid) {
+		for(int[] row : grid) {
+			System.out.println(Arrays.toString(row));
+		}
+		System.out.println();
+//		System.out.println(Arrays.deepToString(grid).replace("],", "\n"));
+	}
+}
+
+/*
+ * 0:dead
+ * 1:alive
+ * 2:dead->alive
+ * 3:alive->dead
+ */
