@@ -1,0 +1,34 @@
+/*
+https://leetcode.com/discuss/interview-question/338412/Goldman-Sachs-or-Online-Assessment-2019
+
+Space - O(1)
+Time - O(n)
+*/
+public class MaximalCommonality {
+    public static void main(String[] args) {
+        MaximalCommonality mc = new MaximalCommonality();
+        System.out.println(mc.findMax("aaabbbbbbaaaa"));
+    }
+    public int findMax(String S) {
+        int[] freq = new int[26];
+        for(char a:S.toCharArray()) {
+            freq[a-'a']++;
+        }
+        int res =0;
+        int count =0;
+        for(char a:S.toCharArray()) {
+            if(freq[a-'a'] > 1) {
+                freq[a-'a'] -=2;
+                count++;
+            }
+            else if(freq[a-'a'] == 1) {
+                freq[a-'a']--;
+            }
+            else if(freq[a-'a'] == 0) {
+                count--;
+            }
+            res = Math.max(res, count);
+        }
+        return res;
+    }
+}
