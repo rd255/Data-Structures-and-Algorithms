@@ -1,18 +1,24 @@
 class Solution {
     public int arrangeCoins(int n) {
-        int i = (int)Math.sqrt(n);
-        n -= ((i)*(i+1)/2);
-        for(i++;n>0;i++) {
-            if(n<i) 
-                return i-1;
-            n-=i;
+        int res = 0;
+        long ln = (long)n;
+        int left = 1;
+        int right = n;
+        while(left<=right) {
+            long mid = left + (right-left)/2;
+            if( mid*(mid+1) > 2*ln ) {
+                right = (int)(mid-1);
+            }
+            else {
+                left = (int)(mid+1);
+            }
         }
-        return i-1;
+        return left -1;
     }
 }
 /*
 
-Time - O(n)
+Time - O(logn)
 Space - O(1)
 
 
