@@ -46,3 +46,46 @@ Accepted
 Submissions
 137,698
 */
+
+class Solution {
+    public int[] findErrorNums(int[] nums) {
+        int xor = 0;
+        int xor1 = 0;
+        int xor0 = 0;
+        int RMB = 0;
+        int len = nums.length;
+        // xor all elements of nums
+        for(int n : nums)
+            xor ^= n;
+        // xor all numbers from 1 to len
+        for(int i=1;i<=len;i++) 
+            xor ^= i;
+        // find right most bit
+        RMB = xor & ~(xor -1);
+        System.out.println(RMB);
+        // xor1 : all elements with same bit as 1 where RMB = 1
+        // xor 0 : all elements with same bit as 0 where RMB = 1
+        for(int n : nums) 
+            if((n & RMB) != 0)
+                xor1 ^= n;
+            else
+                xor0 ^= n;
+        for(int i=1;i<=len;i++) 
+            if((i & RMB) != 0)
+                xor1 ^= i;
+            else
+                xor0 ^= i;
+        // if xor1 is found in nums, duplicate = xor1, missing = xor0
+        // else duplicate = xor0, missing = xor1
+        System.out.println("0:"+xor0 + ",1:" + xor1);
+        for(int i=1;i<=len;i++)
+            if(nums[i]==xor0) 
+                return new int[] {xor0,xor1};
+            else if(nums[i] == xor1)
+                return new int[] {xor1,xor0};
+        return new int[] {-1,-1};
+    }
+}
+/*
+O(1) space
+*/
