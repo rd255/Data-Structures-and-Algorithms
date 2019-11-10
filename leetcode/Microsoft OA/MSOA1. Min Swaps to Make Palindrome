@@ -1,0 +1,96 @@
+/*
+Master list : https://leetcode.com/discuss/interview-question/398023/Microsoft-Online-Assessment-Questions
+Question number : 4
+Question : https://leetcode.com/discuss/interview-question/351783/
+Pracice at : https://www.codechef.com/problems/ENCD12
+Time - O(n^2)
+Space - O(n)
+*/
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		// your code goes here
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuffer sb = new StringBuffer();
+		while(true){
+		    char in[] = br.readLine().toCharArray();
+		    if(in.length==1 && in[0]=='0') break;
+		    int l = 0;
+		    boolean valid = true;
+		    boolean oddExists = false;
+		    HashMap<Character,Integer> hm = new HashMap<Character,Integer>();
+		    while(l<in.length) {
+		        hm.put(in[l],hm.getOrDefault(in[l],0)+1);
+		        l++;
+		    }
+		    for(Entry<Character,Integer> e : hm.entrySet()) {
+		        if(e.getValue()%2==1) {
+		            if(oddExists) {
+		                valid = false;
+		                break;
+		            }
+		            else
+		                oddExists = true;
+		        }
+		    }
+		    if(!valid) {
+		        sb.append("Impossible\n");
+		        continue;
+		    }
+		    int s = 0;
+		    int e = in.length-1;
+		    int res = 0;
+		    while(s<e) {
+		        char c1 = in[s];
+		        char c2 = in[e];
+		        if(c1!=c2) {
+		            int count1 = 0;
+		            int count2 = 0;
+		            int s1 = s+1;
+		            while(s1<e) {
+		                if(in[s1]==in[e])
+		                    break;
+		                else
+		                    s1++;
+		            }
+		            if(s1!=e)
+		                count1 += (s1-s);
+		            int e1 = e-1;
+		            while(e1>s) {
+		                if(in[e1]==in[s])
+		                    break;
+		                else
+		                    e1--;
+		            }
+		            if(e1!=s)
+		                count2+= (e-e1);
+		            if(count2==0 || (count1!=0 && count1<=count2)) {
+		                while(s1>s) {
+    		                char temp = in[s1];
+    		                in[s1] = in[s1-1];
+    		                in[s1-1]  = temp;
+    		                s1--;
+		                }
+		                res+=count1;
+		            }
+		            else { 
+		                while(e1<e) {
+		                    char temp = in[e1];
+		                    in[e1] = in[e1+1];
+		                    in[e1+1] = temp;
+		                    e1++;
+		                }
+		                res+=count2;
+		            }
+		        }
+		        s++;
+		        e--;
+		    }
+		    sb.append(res+"\n");
+		    
+		}
+		System.out.println(sb.toString());
+	}
+}
