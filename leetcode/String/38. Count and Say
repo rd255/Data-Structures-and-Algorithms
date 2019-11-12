@@ -1,34 +1,39 @@
-//1233
-//1112
 class Solution {
     public String countAndSay(int n) {
-        if(n==1)
-            return "1";
-        
-        String a = countAndSay(n-1);
-        int len = a.length();
-        if(len==1)
-            return "1"+a;
-        
-        StringBuilder ret = new StringBuilder();
-        int count =1;
-        
-        for(int i=1;i<len;i++) {
-            if(a.charAt(i)!=a.charAt(i-1)) {
-                ret.append(count);
-                ret.append(a.charAt(i-1));
-                count =1;
+        String s = "1";
+        for(int i=2;i<=n;i++) {
+            int len = s.length();
+            int count = 1;
+            int digit = s.charAt(0)-'0';
+            StringBuffer newSb = new StringBuffer();
+            for(int j=1;j<len;j++) {
+                if(s.charAt(j)==s.charAt(j-1)) {
+                    count++;
+                }
+                else {
+                    newSb.append(count);
+                    newSb.append(digit);
+                    digit = s.charAt(j)-'0';
+                    count=1;
+                }
             }
-            else
-                count++;
+            newSb.append(count);
+            newSb.append(digit);
+            s = newSb.toString();
         }
-        ret.append(count);
-        ret.append(a.charAt(len-1));
-        return ret.toString();
-        
+        return s;
     }
 }
+
 /*
+
+Complexity Analysis:
+
+The precise time complexity is a function of the lengths of the terms, which is extremely hard to analyze.
+Each successive number can have at most twice as many digits as the previous number and this happens when all digits are different [21 -> 1211]. This means a maximum length number has length no more than 2n.
+Since there are n iterations and the work in each iteration is proportional to the length of the number computed in the iteration (which is 2n). So the simple bound on the time complexity is O(n * 2^n)
+Time complexity: O(n * 2^n)
+Space complexity: O(2^n) - space required for the StringBuilder. The generaed nth term for a number n can have a length of at most 2^n.
 The count-and-say sequence is the sequence of integers with the first five terms as following:
 
 1.     1
