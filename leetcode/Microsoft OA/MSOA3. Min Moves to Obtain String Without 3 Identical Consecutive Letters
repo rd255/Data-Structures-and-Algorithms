@@ -1,0 +1,37 @@
+
+public class MinMoves {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		MinMoves m = new MinMoves();
+		System.out.println(m.countReplace("baaaaa")==1);
+		System.out.println(m.countReplace("baaabbaabbba")==2);
+		System.out.println(m.countReplace("baabab")==0);
+		System.out.println(m.countReplace("bbbaaabbab")==2);
+	}
+	public int countReplace(String s) {
+		int res = 0;
+		int len = s.length();
+		int count = 1;
+		for(int i=1;i<len;i++) {
+			if(s.charAt(i)!=s.charAt(i-1)) {
+				count = 1;
+			}
+			else {
+				count++;
+				if(count == 3) {
+					res++;
+					count = 0;
+				}
+			}
+		}
+		return res;
+	}
+
+}
+/*
+Space - O(1)
+Time - O(n)
+
+https://leetcode.com/discuss/interview-question/398026/
+*/
