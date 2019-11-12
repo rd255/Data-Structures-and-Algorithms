@@ -1,0 +1,40 @@
+
+public class NumbersWithEqualDigitSum {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		NumbersWithEqualDigitSum nweds = new NumbersWithEqualDigitSum();
+		System.out.println(nweds.getSum(new int[]{51,17,71,42})==93);
+		System.out.println(nweds.getSum(new int[]{42,33,60})==102);
+		System.out.println(nweds.getSum(new int[]{51,32,43})==-1);
+	}
+	public int getSum(int[] A) {
+		int maxSum = -1;
+		int len = A.length;
+		for(int i=0;i<len;i++) {
+			for(int j=i+1;j<len;j++) {
+				int dSumi = getDigitSum(A[i]);
+				int dSumj = getDigitSum(A[j]);
+				if(dSumi == dSumj) {
+					maxSum = Math.max(maxSum, A[i]+A[j]);	
+				}
+			}
+		}
+		return maxSum;
+	}
+	public int getDigitSum(int i) {
+		int res = 0;
+		while(i>0) {
+			res += i%10;
+			i/=10;
+		}
+		return res;
+	}
+}
+
+/*
+Time - O(N^2)
+Space - O(1)
+https://leetcode.com/discuss/interview-question/365872/
+
+*/
